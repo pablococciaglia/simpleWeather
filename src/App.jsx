@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import CityPage from './pages/CityPage';
 import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFound';
@@ -10,22 +10,12 @@ const App = () => {
 	return (
 		<WeatherContext>
 			<Router>
-				<div>
-					<Switch>
-						<Route exact path='/'>
-							<WelcomePage />
-						</Route>
-						<Route path='/main'>
-							<MainPage />
-						</Route>
-						<Route path='/city/:city/:countryCode'>
-							<CityPage />
-						</Route>
-						<Route>
-							<NotFound />
-						</Route>
-					</Switch>
-				</div>
+				<Routes>
+					<Route exact path='/' element={<WelcomePage />} />
+					<Route path='/main' element={<MainPage />} />
+					<Route path='/city/:city/:countryCode' element={<CityPage />} />
+					<Route path='*' element={<NotFound />} />
+				</Routes>
 			</Router>
 		</WeatherContext>
 	);
