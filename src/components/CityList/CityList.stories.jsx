@@ -15,5 +15,5 @@ const cities = [
 ];
 
 export const CityListExample = () => (
-	<CityList cities={cities} onClickCity={action('Click en city')} />
+	<CityList cities={cities} onClickCity={action('Click on city')} />
 );

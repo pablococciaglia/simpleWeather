@@ -11,20 +11,24 @@ import useCityPage from './../hooks/useCityPage';
 import useCityList from '../hooks/useCityList';
 import { getCityCode } from '../utils/utils';
 import { getCountryNameByCountryCode } from '../utils/serviceCities';
+import {
+	useWeatherDispatchContext,
+	useWeatherStateContext,
+} from '../WeatherContext';
 
-const CityPage = ({ data, actions }) => {
-	const { onSetAllWeather, onSetChartData, onSetForecastItemList } = actions;
+const CityPage = () => {
+	const actions = useWeatherDispatchContext();
+	const data = useWeatherStateContext();
 	const { allWeather, allForecastItemList, allChartData } = data;
 	const { city, countryCode } = useCityPage(
 		allChartData,
 		allForecastItemList,
-		onSetChartData,
-		onSetForecastItemList
+		actions
 	);
 
 	const cities = useMemo(() => [{ city, countryCode }], [city, countryCode]);
 
-	useCityList(cities, allWeather, onSetAllWeather);
+	useCityList(cities, allWeather, actions);
 
 	const citycode = getCityCode(city, countryCode);
 

@@ -1,26 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import CityList from '../components/CityList';
 import AppFrame from '../components/AppFrame/AppFrame';
 import { Paper } from '@material-ui/core';
 import { getCities } from '../utils/serviceCities';
 
-const MainPage = ({ actions, data }) => {
-	const history = useHistory();
+const MainPage = () => {
+	const navigate = useHistory();
 
-	const handlerOnClick = (city, countryCode) => {
-		history.push(`./city/${city}/${countryCode}`);
-	};
+	const handlerOnClick = useCallback(
+		(city, countryCode) => {
+			navigate.push(`./city/${city}/${countryCode}`);
+		},
+		[navigate]
+	);
 
 	return (
 		<AppFrame>
 			<Paper elevation={3}>
-				<CityList
-					data={data}
-					actions={actions}
-					cities={getCities()}
-					onClickCity={handlerOnClick}
-				/>
+				<CityList cities={getCities()} onClickCity={handlerOnClick} />
 			</Paper>
 		</AppFrame>
 	);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import CityList from './CityList';
+import { WeatherContext } from '../../WeatherContext';
 
 const cities = [
 	{ city: 'Buenos Aires', country: 'Argentina', countryCode: 'AR' },
@@ -10,8 +11,12 @@ const cities = [
 ];
 
 test('CityList renders', async () => {
+	const fnClickOnItem = jest.fn();
+
 	const { findAllByRole } = render(
-		<CityList cities={cities} onClickCity={() => {}} />
+		<WeatherContext>
+			<CityList cities={cities} onClickCity={fnClickOnItem} />
+		</WeatherContext>
 	);
 
 	const items = await findAllByRole('button');
@@ -23,7 +28,9 @@ test('CityList click on item', async () => {
 	const fnClickOnItem = jest.fn();
 
 	const { findAllByRole } = render(
-		<CityList cities={cities} onClickCity={fnClickOnItem} />
+		<WeatherContext>
+			<CityList cities={cities} onClickCity={fnClickOnItem} />
+		</WeatherContext>
 	);
 
 	const items = await findAllByRole('button');
